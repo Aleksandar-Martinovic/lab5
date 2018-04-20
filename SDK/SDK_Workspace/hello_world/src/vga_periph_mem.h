@@ -71,10 +71,18 @@ void set_cursor(Xuint32 new_value);
 
 void clear_graphics_screen(Xuint32 BaseAddress);
 void clear_text_screen(Xuint32 BaseAddress);
+void clear_screen(Xuint32 BaseAddress);
+
+void set_foreground_color(int x);
+void set_background_color(int x);
+void set_font_size(int x);
+
+void moving(Xuint32 BaseAddress, unsigned char string_s);
+//moving2(Xuint32 BaseAddress, unsigned char string_s[], int lenght);
 
 void draw_square(Xuint32 BaseAddress);
 void draw_rectangle(Xuint32 BaseAddress);
-void print_string(Xuint32 BaseAddress, unsigned char string_s[], int lenght);
+void print_string(Xuint32 BaseAddress, unsigned char string_s[],int len);
 void print_char(Xuint32 BaseAddress, unsigned char character);
 
 #endif /** VGA_PERIPH_MEM_H */

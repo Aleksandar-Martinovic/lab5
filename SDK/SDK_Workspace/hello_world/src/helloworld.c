@@ -65,8 +65,9 @@ int main()
     //draw_square(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR);
     draw_rectangle(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR);
     set_cursor(350);
-    //print_string(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR, string_s, 19);
-    print_char(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR, character);
+    print_string(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR, string_s, 19);
+    //print_char(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR, character);
+    moving(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR, character);
 
 
     return 0;

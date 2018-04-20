@@ -7,8 +7,9 @@
 
 
 /***************************** Include Files *******************************/
-
+#include "xparameters.h"
 #include "vga_periph_mem.h"
+
 Xuint32 cursor_position;
 /************************** Function Definitions ***************************/
 
@@ -41,6 +42,27 @@ void clear_graphics_screen(Xuint32 BaseAddress){
 	}
 }
 
+void clear_screen(Xuint32 BaseAddress) {
+	int i;
+	for (i = 0; i < 9600; i++) {
+		VGA_PERIPH_MEM_mWriteMemory(BaseAddress + i*4, 0x0);
+	}
+}
+
+void set_foreground_color(int x) {
+	VGA_PERIPH_MEM_mWriteMemory(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x10, x);
+}
+
+void set_background_color(int x) {
+	VGA_PERIPH_MEM_mWriteMemory(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x14, x);
+}
+
+void set_font_size(int x) {
+	VGA_PERIPH_MEM_mWriteMemory(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR + 0x0C, x);
+}
+
+
+
 void draw_square(Xuint32 BaseAddress){
 	int i, j, k;
 		for (j = 0; j < 480; j++){
@@ -71,6 +93,47 @@ void draw_rectangle(Xuint32 BaseAddress) {
 		}
 }
 
-void draw_cicrle(Xuint32 BaseAddress) {
-
+void moving(Xuint32 BaseAddress, unsigned char string_s) {
+	int i;
+	int j;
+	for (i = 160; i < 321; i++) {
+		set_cursor(i);	
+		print_char(BaseAddress, string_s);
+		for(j=0;j<100000;j++)
+		{
+		}
+		clear_text_screen(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR);
+		if (i == 320) {
+			for (i = 319; i > 159; i--)
+			{
+					set_cursor(i);
+					print_char(BaseAddress, string_s);
+					for(j=0;j<100000;j++)
+							{
+							}
+					clear_text_screen(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR);
+					if (i == 160) {
+						moving(BaseAddress, string_s);
+					}
+			}
+	}
+	}
 }
+
+/*void moving2(Xuint32 BaseAddress, unsigned char string_s[], int lenght2) {
+	int i;
+	for (i = 320; i > 159; i--) {
+		set_cursor(i);
+		
+		print_string(BaseAddress, string_s, lenght);
+			
+		clear_text_screen(XPAR_VGA_PERIPH_MEM_0_S_AXI_MEM0_BASEADDR);
+		
+		if (i == 160) {
+			moving1(BaseAddress, string_s, length2);
+		}
+		
+		break;
+	}
+}
+*/
